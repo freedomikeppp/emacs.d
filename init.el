@@ -134,6 +134,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(package-selected-packages (quote (emmet-mode ruby-mode ruby-block auto-complete)))
  '(size-indication-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -141,3 +142,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; emmet 設定
+(require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; マークアップ言語全部で使う
+(add-hook 'css-mode-hook  'emmet-mode) ;; CSSにも使う
+(add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;; indent はスペース2個
+(eval-after-load "emmet-mode"
+  '(define-key emmet-mode-keymap (kbd "C-j") nil)) ;; C-j は newline のままにしておく
+(keyboard-translate ?\C-i ?\H-i) ;;C-i と Tabの被りを回避
+(define-key emmet-mode-keymap (kbd "H-i") 'emmet-expand-line) ;; C-i で展開
