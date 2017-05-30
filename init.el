@@ -104,6 +104,9 @@
 ;; 現在行のハイライト
 ;; (global-hl-line-mode t)
 
+;; 保存時に行末のスペースを削除する
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; # ----------------------
 ;; # 拡張機能設定
 ;; # ----------------------
