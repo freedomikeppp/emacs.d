@@ -111,8 +111,8 @@
 ;; # 拡張機能設定
 ;; # ----------------------
 ;; auto-complete設定
-(require 'auto-complete-config)
-(ac-config-default)
+;;(require 'auto-complete-config)
+;;(ac-config-default)
 ;;(add-to-list 'ac-modes 'text-mode) ;; text-modeでも自動的に有効にする
 ;;(ac-set-trigger-key "TAB")
 ;;(setq ac-use-menu-map t) ;; 補完メニュー表示時にC-n/C-pで補完候補選択
