@@ -48,10 +48,8 @@
 ;; # ----------------------
 ;; # 初期設定
 ;; # ----------------------
-;;クリップボードを有効
-(cond (window-system
-  (setq x-select-enable-clipboard t)
-  ))
+;;クリップボード有効
+(setq x-select-enable-clipboard t)
 
 ;; ウィンドウサイズの位置、サイズ
 (if window-system (progn
