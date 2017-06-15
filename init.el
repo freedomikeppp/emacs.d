@@ -108,9 +108,6 @@
 ;; デフォルトのカラーテーマから指定
 (load-theme 'wombat t)
 
-;; 現在行のハイライト
-(global-hl-line-mode t)
-
 ;; タブと全角スペースを表示
 (setq whitespace-style
         '(tabs tab-mark spaces space-mark))
