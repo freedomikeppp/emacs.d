@@ -46,19 +46,8 @@
 (define-key global-map (kbd "C-t") 'other-window)
 
 ;; # ----------------------
-;; # 初期設定
+;; # 必須設定
 ;; # ----------------------
-;;クリップボード有効
-(setq x-select-enable-clipboard t)
-
-;; ウィンドウサイズの位置、サイズ
-(if window-system (progn
-  (setq initial-frame-alist '((width . 105)(height . 80)(top . 0)(left . 0)))
-  (set-background-color "Black")
-  (set-foreground-color "White")
-  (set-cursor-color "Gray")
-))
-
 ;;環境変数追加
 (add-to-list 'exec-path "/opt/local/bin")
 (add-to-list 'exec-path "/usr/local/bin")
@@ -78,6 +67,32 @@
   (set-file-name-coding-system 'cp932)
   (setq locale-coding-system 'cp932))
 
+;; # ----------------------
+;; # 機能
+;; # ----------------------
+;;クリップボード有効
+(setq x-select-enable-clipboard t)
+
+;; バックアップとオートセーブファイルを~/.emacs.d/backups/へ集める
+(add-to-list 'backup-directory-alist
+   (cons "." "~/.emacs.d/backups/"))
+(setq auto-save-file-name-transforms
+   `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
+
+;; 保存時に行末のスペースを削除する
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; # ----------------------
+;; # ビジュアル
+;; # ----------------------
+;; ウィンドウサイズの位置、サイズ
+(if window-system (progn
+  (setq initial-frame-alist '((width . 105)(height . 80)(top . 0)(left . 0)))
+  (set-background-color "Black")
+  (set-foreground-color "White")
+  (set-cursor-color "Gray")
+))
+
 ;; カラム番号も表示
 (column-number-mode t)
 
@@ -90,20 +105,26 @@
 ;; TABの表示幅。初期値は8
 (setq-default tab-width 4)
 
-;; バックアップとオートセーブファイルを~/.emacs.d/backups/へ集める
-(add-to-list 'backup-directory-alist
-   (cons "." "~/.emacs.d/backups/"))
-(setq auto-save-file-name-transforms
-   `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
-
 ;; デフォルトのカラーテーマから指定
 (load-theme 'wombat t)
 
 ;; 現在行のハイライト
-;; (global-hl-line-mode t)
+(global-hl-line-mode t)
 
-;; 保存時に行末のスペースを削除する
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; タブと全角スペースを表示
+(setq whitespace-style
+        '(tabs tab-mark spaces space-mark))
+(setq whitespace-space-regexp "\\(\x3000+\\)")
+(setq whitespace-display-mappings
+        '((space-mark ?\x3000 [?\□])
+          (tab-mark   ?\t   [?\xBB ?\t])
+          ))
+(require 'whitespace)
+(global-whitespace-mode 1)
+(set-face-foreground 'whitespace-space "LightSlateGray")
+(set-face-background 'whitespace-space "DarkSlateGray")
+(set-face-foreground 'whitespace-tab "LightSlateGray")
+(set-face-background 'whitespace-tab "DarkSlateGray")
 
 ;; # ----------------------
 ;; # 拡張機能設定
