@@ -102,26 +102,35 @@
 ;; タイトルバーにファイルのフルパスを表示
 (setq frame-title-format "%f")
 
-;; TABの表示幅。初期値は8
-(setq-default tab-width 4)
-
 ;; デフォルトのカラーテーマから指定
 (load-theme 'wombat t)
 
 ;; タブと全角スペースを表示
-(setq whitespace-style
-        '(tabs tab-mark spaces space-mark))
-(setq whitespace-space-regexp "\\(\x3000+\\)")
-(setq whitespace-display-mappings
-        '((space-mark ?\x3000 [?\□])
-          (tab-mark   ?\t   [?\xBB ?\t])
-          ))
-(require 'whitespace)
-(global-whitespace-mode 1)
-(set-face-foreground 'whitespace-space "LightSlateGray")
-(set-face-background 'whitespace-space "DarkSlateGray")
-(set-face-foreground 'whitespace-tab "LightSlateGray")
-(set-face-background 'whitespace-tab "DarkSlateGray")
+;; (setq whitespace-style
+;;         '(tabs tab-mark spaces space-mark))
+;; (setq whitespace-space-regexp "\\(\x3000+\\)")
+;; (setq whitespace-display-mappings
+;;         '((space-mark ?\x3000 [?\□])
+;;           (tab-mark   ?\t   [?\xBB ?\t])
+;;           ))
+;; (require 'whitespace)
+;; (global-whitespace-mode 1)
+;; (set-face-foreground 'whitespace-space "LightSlateGray")
+;; (set-face-background 'whitespace-space "DarkSlateGray")
+;; (set-face-foreground 'whitespace-tab "LightSlateGray")
+;; (set-face-background 'whitespace-tab "DarkSlateGray")
+
+;; TABの表示幅。初期値は8
+(setq-default tab-width 2)
+(setq default-tab-width 2)
+
+;; 関数化して動的にtab-stop-listを設定している
+(add-hook 'python-mode-hook
+      '(lambda()
+          (setq indent-tabs-mode t)
+          (setq indent-level 4)
+          (setq python-indent 4)
+          (setq tab-width 4)))
 
 ;; # ----------------------
 ;; # 拡張機能設定
@@ -134,40 +143,12 @@
 ;;(setq ac-use-menu-map t) ;; 補完メニュー表示時にC-n/C-pで補完候補選択
 ;;(setq ac-use-fuzzy t) ;; 曖昧マッチ
 
-;; ruby-mode設定
-(autoload 'ruby-mode "ruby-mode"
-   "Mode for editing ruby source files" t)
-   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-   (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-   (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
-
-;; ruby-block設定
-(require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(package-selected-packages (quote (emmet-mode ruby-mode ruby-block auto-complete)))
- '(size-indication-mode t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 ;; emmet 設定
-(require 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; マークアップ言語全部で使う
-(add-hook 'css-mode-hook  'emmet-mode) ;; CSSにも使う
-(add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;; indent はスペース2個
-(eval-after-load "emmet-mode"
-  '(define-key emmet-mode-keymap (kbd "C-j") nil)) ;; C-j は newline のままにしておく
-(keyboard-translate ?\C-i ?\H-i) ;;C-i と Tabの被りを回避
-(define-key emmet-mode-keymap (kbd "H-i") 'emmet-expand-line) ;; C-i で展開
+;; (require 'emmet-mode)
+;; (add-hook 'sgml-mode-hook 'emmet-mode) ;; マークアップ言語全部で使う
+;; (add-hook 'css-mode-hook  'emmet-mode) ;; CSSにも使う
+;; (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;; indent はスペース2個
+;; (eval-after-load "emmet-mode"
+;;   '(define-key emmet-mode-keymap (kbd "C-j") nil)) ;; C-j は newline のままにしておく
+;; (keyboard-translate ?\C-i ?\H-i) ;;C-i と Tabの被りを回避
+;; (define-key emmet-mode-keymap (kbd "H-i") 'emmet-expand-line) ;; C-i で展開
